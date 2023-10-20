@@ -1,9 +1,10 @@
-import { Component } from 'react';
 import Modal from 'react-modal';
 import { Overlay } from './Modal.styled';
 
 Modal.defaultStyles.overlay.backgroundColor = 'rgba(0, 0, 0, 0.8)';
 Modal.defaultStyles.overlay.border = 'rgba(0, 0, 0, 0.8)';
+Modal.setAppElement('#root');
+
 const customStyles = {
   content: {
     top: '50%',
@@ -16,28 +17,23 @@ const customStyles = {
   },
 };
 
-Modal.setAppElement('#root');
-
-export class ModalImage extends Component {
-  onModalCLose = e => {
+export const ModalImage = ({ isOpenModal, isCloseModal, tags, largeImg }) => {
+  const onModalCLose = e => {
     if (e.target === e.currentTarget) {
-      this.props.isCloseModal();
+      isCloseModal();
     }
   };
 
-  render() {
-    const { isOpenModal, tags, largeImg } = this.props;
-    return (
-      <Overlay>
-        <Modal
-          isOpen={isOpenModal}
-          onRequestClose={this.onModalCLose}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          <img src={largeImg} alt={tags} />
-        </Modal>
-      </Overlay>
-    );
-  }
-}
+  return (
+    <Overlay>
+      <Modal
+        isOpen={isOpenModal}
+        onRequestClose={onModalCLose}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <img src={largeImg} alt={tags} />
+      </Modal>
+    </Overlay>
+  );
+};
