@@ -25,6 +25,9 @@ export const App = () => {
   };
 
   useEffect(() => {
+    if (currentValue === '') {
+      return;
+    }
     async function getImages() {
       try {
         setIsLoading(true);
